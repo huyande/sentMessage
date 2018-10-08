@@ -8,22 +8,56 @@
 <body>
   <div class="layui-form-item">
     <label class="layui-form-label">手机号 1 </label>
+    <div class="layui-input-block" style="float: left;margin-left: 10px;margin-right: 10px;">
+      	<input type="text" name="title" placeholder="请输入标题"  class="layui-input" style="width: 512px;">
+     </div>
+     <div class="" style="float: left;">
+    	<button class="layui-btn layui-bg-red butDel"><i class="layui-icon">&#x1006;</i> 删除</button>
+     </div>
+  </div>
+  
+  <div class="layui-form-item" >
     <div class="layui-input-block">
-      <input type="text" name="title" placeholder="请输入标题"  class="layui-input">
+      <button class="layui-btn" >立即发送</button>
+      <button class="layui-btn layui-btn-normal" id="btnAdd">增加号码</button>
     </div>
   </div>
   
-  <div class="layui-form-item">
-    <div class="layui-input-block">
-      <button class="layui-btn" >立即发送</button>
-      <button class="layui-btn layui-btn-normal">增加号码</button>
-    </div>
-  </div>
- 
+<script src="/layui.js"></script>
 <script>
 //Demo
-
-
+layui.use(['layedit', 'laydate','element','jquery'], function() {
+	layer = layui.layer,
+	$=layui.jquery;
+	$(document).on('click','#btnAdd',function(){
+		//layer.msg();
+		console.log($(this).parent())
+		//找到当前的祖宗元素 
+		var parentFather = $(this).closest('.layui-form-item');
+		//在祖宗元素 前添加 标签对象  
+		var html =' <div class="layui-form-item">'+
+		    '<label class="layui-form-label">手机号 1 </label>'+
+		    '<div class="layui-input-block" style="float: left;margin-left: 10px;margin-right: 10px;">'+
+		     ' <input type="text" name="title" placeholder="请输入标题"  class="layui-input" style="width: 512px;">'+
+		    '</div>'+
+		    '<div class="" style="float: left;"><button class="layui-btn layui-bg-red butDel"><i class="layui-icon">&#x1006;</i> 删除</button></div>'+
+		  '</div>';
+		parentFather.before(html);
+	});
+	
+	$(document).on('click','.butDel',function(){
+		//layer.msg();
+		console.log($(this))
+		var len = $(this).closest('.layui-form-item').prev().length;
+		if(len == 0){
+			layer.msg("已经是第一个了");
+		}else{
+			$(this).closest('.layui-form-item').remove()
+		}
+	});
+	
+	
+});
 </script>
 </body>
 </html>
